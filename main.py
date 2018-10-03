@@ -35,7 +35,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 # Hyper parameters
 num_epochs = 5
 num_classes = 3
-batch_size = 10
+batch_size = 5
 learning_rate = 0.0001
 
 # x = torch.randn(batch_size, channels_mammo,heights_mammo , width_mammo)
@@ -64,7 +64,7 @@ test_df.to_csv(test_file)
 classes = ('BENIGN', 'BENIGN_WITHOUT_CALLBACK', 'MALIGNANT')
 
 #Image size
-img_resize=H=W=512
+img_resize=H=W=1024
 
 # Mammography dataset
 train_dataset =  CDDSM.MammographyDataset(train_file,homedir,img_resize)
