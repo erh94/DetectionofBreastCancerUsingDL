@@ -133,6 +133,6 @@ class BaselineNet1024(nn.Module):
         num_features = 1
         for s in size:
             num_features *= s
-        print("Flat features : {}".format(num_features))
+        # print("Flat features : {}".format(num_features))
         return num_features
     

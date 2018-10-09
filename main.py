@@ -33,7 +33,7 @@ import CDDSM
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 # Hyper parameters
-num_epochs = 5
+num_epochs = 50
 num_classes = 3
 batch_size = 3
 learning_rate = 0.0001
@@ -92,7 +92,7 @@ print('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{
 
 # In[3]:
 
-model = B.getModel(3).to(device)
+model = B.getModel1024L(3).to(device)
 # getModel gives a model for images 512*512
 # getModel1024 gives model for images 1024*1024
 # getModel1024L gives model for images 1024*1024
@@ -123,7 +123,8 @@ for epoch in range(num_epochs):
         if (i+1) % 50 == 0:
             print ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' 
                    .format(epoch+1, num_epochs, i+1, total_step, loss.item()))
-            torch.save(model.state_dict(), str(str(epoch)+'model.ckpt'))
+    
+    torch.save(model.state_dict(), str(str(epoch)+'model.ckpt'))
 
 # Test the model
 
