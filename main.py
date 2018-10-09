@@ -35,7 +35,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 # Hyper parameters
 num_epochs = 5
 num_classes = 3
-batch_size = 5
+batch_size = 3
 learning_rate = 0.0001
 
 # x = torch.randn(batch_size, channels_mammo,heights_mammo , width_mammo)
@@ -93,6 +93,9 @@ print('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{
 # In[3]:
 
 model = B.getModel(3).to(device)
+# getModel gives a model for images 512*512
+# getModel1024 gives model for images 1024*1024
+# getModel1024L gives model for images 1024*1024
 
 # Loss and optimizer
 criterion = nn.CrossEntropyLoss()
