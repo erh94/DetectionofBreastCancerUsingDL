@@ -19,7 +19,16 @@ import torchvision.models as models
 # writer = SummaryWriter('runs')
 
 
-def adjust_learning_rate(optimizer,epoch)
+def save_checkpoint(state, is_best, filename='checkpoint.pth.tar'):
+    torch.save(state, filename)
+    if is_best:
+        shutil.copyfile(filename, 'model_best.pth.tar')
+
+def adjust_learning_rate(optimizer,epoch,initLR):
+    '''Sets the learning rate to the initial LR decayed by 10 every 30 epoch'''
+    lr = initLR * (0.1 ** (epoch // 30))
+    for param_group in optimizer.param_groups:
+        param_group['lr'] = lr
 
 def train(train_loader, model, criterion, optimizer, epoch):
     batch_time = AverageMeter()
