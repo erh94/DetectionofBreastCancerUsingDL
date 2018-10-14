@@ -72,7 +72,7 @@ print('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{
         .format(num_epochs,batch_size,learning_rate,H,W,total_step))
 
 
-model = B.getModel1024L(3).to(device)
+model = B.getModel(3).to(device)
 
 # store best prrediction in one epoch
 
@@ -88,10 +88,10 @@ for epoch in range(start_epoch , epochs):
     adjust_learning_rate(optimizer,epoch)
 
     # train for one epoch
-    train(train_loader,model,criterion,optimizer,epoch)
+    train(train_loader,model,criterion,optimizer,epoch,writer)
 
     # evalaute on validation set
-    prec = validate(val_loader,model,criterion)
+    prec = validate(val_loader,model,criterion,writer)
 
 
     # to save best model after each epoch
