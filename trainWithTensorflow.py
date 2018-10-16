@@ -20,6 +20,15 @@ writer = SummaryWriter('runs',comment="baseline")
 import CDDSM
 
 
+
+def pause(strg):
+    if(strg!=''):
+        print('Reached at {}, Press any key to continue'.format(strg))
+    else:
+        print('Paused, Press any to continue')
+    input()
+    return
+
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 num_epochs = 100
@@ -28,6 +37,8 @@ batch_size = 5
 learning_rate = 0.0001
 
 total_iteration = 10000
+img_resize =H=W=512
+
 
 homedir = str(Path.home())
 homedir
@@ -45,7 +56,7 @@ classes = ('BENIGN', 'BENIGN_WITHOUT_CALLBACK', 'MALIGNANT')
 dataset =  CDDSM.MammographyDataset(train_file,homedir,img_resize)
 test_dataset = CDDSM.MammographyDataset(test_file,homedir,img_resize)
 
-train_dataset , val_dataset = CDDSM.trainValSplit(dataset,val_share=0.9)
+train_dataset , val_dataset = CDDSM.trainValSplit(dataset,val_share=0.1)
 
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
                                            batch_size=batch_size, 
@@ -74,6 +85,7 @@ print('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{
 
 model = B.getModel(3).to(device)
 
+pause('dataset created')
 # store best prrediction in one epoch
 
 best_prec = 0
@@ -83,9 +95,11 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(),lr=learning_rate)
 
 
-for epoch in range(start_epoch , epochs):
+for epoch in range(num_epochs):
 
-    adjust_learning_rate(optimizer,epoch)
+    adjust_learning_rate(optimizer,epoch,learning_rate)
+
+    pause('learning rate adjusted')
 
     # train for one epoch
     train(train_loader,model,criterion,optimizer,epoch,writer)
