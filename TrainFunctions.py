@@ -159,7 +159,7 @@ def validate(val_loader, model, criterion,writer):
                   'Prec@5 {top5.val:.3f} ({top5.avg:.3f})'.format(
                    i, len(val_loader), batch_time=batch_time, loss=losses,
                    top1=top1, top5=top5))
-            niter = epoch*len(train_loader)+i
+            niter = epoch*len(val_loader)+i
             writer.add_scalar('Test/Loss', losses.val, niter)
             writer.add_scalar('Test/Prec@1', top1.val, niter)
             writer.add_scalar('Test/Prec@5', top5.val, niter)
