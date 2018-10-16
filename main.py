@@ -26,16 +26,25 @@ from pathlib import Path
 # import pytorch_resnet as R
 import BaseModel as B
 import CDDSM
+import time
+import logging
 
+suffix = time.strftime("%d%b%Y%H%M",time.localtime())
+logtime = time.strftime("%d%b%Y %H:%M:%S",time.localtime())
+
+level = logging.INFO
+format = '%(message)s'
+handlers = [logging.FileHandler('Run{}'.format(suffix)),logging.StreamHandler()]
+logging.basicConfig(level=level,format=format,handlers=handlers)
 
 
 #Device Selection
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-
+logging.info('Device {}'.format(device))
 # Hyper parameters
-num_epochs = 50
+num_epochs = 200
 num_classes = 3
-batch_size = 3
+batch_size = 5
 learning_rate = 0.0001
 
 # x = torch.randn(batch_size, channels_mammo,heights_mammo , width_mammo)
@@ -58,13 +67,13 @@ train_df.to_csv(train_file)
 test_df.to_csv(test_file)
 
 # labells = train_df[['pathology','pathology_class']]
-# print(labells)
+# logging.info(labells)
 
 
 classes = ('BENIGN', 'BENIGN_WITHOUT_CALLBACK', 'MALIGNANT')
 
 #Image size
-img_resize=H=W=1024
+img_resize=H=W=512
 
 # Mammography dataset
 train_dataset =  CDDSM.MammographyDataset(train_file,homedir,img_resize)
@@ -85,14 +94,14 @@ number_of_testing_data = test_dataset.__len__()
 total_step = len(train_loader)
 
 
-print('Size of training dataset {}'.format(number_of_training_data))
-print('Size of testing dataset {}'.format(number_of_testing_data))
-print('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{}\n Step {}'
+logging.info('Size of training dataset {}'.format(number_of_training_data))
+logging.info('Size of testing dataset {}'.format(number_of_testing_data))
+logging.info('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{}\n Step {}'
         .format(num_epochs,batch_size,learning_rate,H,W,total_step))
 
 # In[3]:
 
-model = B.getModel1024L(3).to(device)
+model = B.getModel(3).to(device)
 # getModel gives a model for images 512*512
 # getModel1024 gives model for images 1024*1024
 # getModel1024L gives model for images 1024*1024
@@ -102,9 +111,8 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 
-# In[5]:
 
-
+correct=0
 # Train the model
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
@@ -121,31 +129,31 @@ for epoch in range(num_epochs):
         optimizer.step()
         
         if (i+1) % 50 == 0:
-            print ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}' 
-                   .format(epoch+1, num_epochs, i+1, total_step, loss.item()))
-    
-    torch.save(model.state_dict(), str(str(epoch)+'model.ckpt'))
+            logging.info ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'.format(epoch+1, num_epochs, i+1, total_step, loss.item()))
 
-# Test the model
+    if (epoch % 25 ==0):
 
-model.eval()  # eval mode (batchnorm uses moving mean/variance instead of mini-batch mean/variance)
+        previouscorrect = correct
 
-
-print("\n *********************Testing on CBIS-DDSM test data************************\n")
-
-with torch.no_grad():
-    correct = 0
-    total = 0
-    for images, labels in test_loader:
-        images = images.to(device)
-        labels = labels.to(device)
-        outputs = model(images)
-        _, predicted = torch.max(outputs.data, 1)
-        total += labels.size(0)
-        correct += (predicted == labels).sum().item()
-        print('Correct Label is : {}, Predicted Label is {}'.format(labels,predicted))
-
-    print('Test Accuracy of the model on the {} test images: {} %'.format(number_of_testing_data,100 * correct / total))
+        model.eval()  # eval mode (batchnorm uses moving mean/variance instead of mini-batch mean/variance)
 
 
-torch.save(model.state_dict(), str(str(learning_rate)+'model.ckpt'))
+        logging.info("\n *********************Testing on CBIS-DDSM test data************************\n")
+
+        with torch.no_grad():
+            correct = 0
+            total = 0
+            for images, labels in test_loader:
+                images = images.to(device)
+                labels = labels.to(device)
+                outputs = model(images)
+                _, predicted = torch.max(outputs.data, 1)
+                total += labels.size(0)
+                correct += (predicted == labels).sum().item()
+                logging.info('Correct Label is : {}, Predicted Label is {}'.format(labels,predicted))
+
+            logging.info('Test Accuracy of the model on the {} test images: {} %'.format(number_of_testing_data,100 * correct / total))
+
+            if(previouscorrect<correct):
+                logging.info('Saving the model')
+                torch.save(model.state_dict(), str(str(learning_rate)+'model.ckpt'))
