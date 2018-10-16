@@ -123,12 +123,12 @@ class MammographyDataset(Dataset):
 
 
 
-class FullTrainingDataset(torch.utils.data.Dataset):
-    def init(self, full_ds, offset, length):
+class FullTrainingDataset(Dataset):
+    def __init__(self, full_ds, offset, length):
         self.full_ds = full_ds
         self.offset = offset
         self.length = length
-        super(FullTrainingDataset, self).init()
+        # super(FullTrainingDataset, self).init()
 
     def __len__(self):
         return self.length
@@ -137,7 +137,7 @@ class FullTrainingDataset(torch.utils.data.Dataset):
         return self.full_ds[i+self.offset]
 
 
-def trainValSplit(dataset, val_share=TEST_RATIO):
+def trainValSplit(dataset, val_share):
     val_offset = int(len(dataset)*(1-val_share))
     
     return FullTrainingDataset(dataset, 0, val_offset), FullTrainingDataset(dataset, val_offset, len(dataset)-val_offset)
