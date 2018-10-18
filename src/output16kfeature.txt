@@ -1,0 +1,11 @@
+Size of training dataset 2864
+Size of testing dataset 704
+No. of Epochs: 50
+ Batch size: 3
+ Learning_rate : 0.0001
+ Image size 1024*1024
+ Step 955
+Epoch [1/50], Step [50/955], Loss: 1.0625
+Epoch [1/50], Step [100/955], Loss: 1.2898
+Epoch [1/50], Step [150/955], Loss: 0.8930
+Epoch [1/50], Step [200/955], Loss: 1.1390
