@@ -42,7 +42,7 @@ logging.basicConfig(level=level,format=format,handlers=handlers)
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 logging.info('Device {}'.format(device))
 # Hyper parameters
-num_epochs = 200
+num_epochs = 150
 num_classes = 3
 batch_size = 5
 learning_rate = 0.0001
@@ -73,7 +73,7 @@ test_df.to_csv(test_file)
 classes = ('BENIGN', 'BENIGN_WITHOUT_CALLBACK', 'MALIGNANT')
 
 #Image size
-img_resize=H=W=512
+img_resize=H=W=1024
 
 # Mammography dataset
 train_dataset =  CDDSM.MammographyDataset(train_file,homedir,img_resize)
@@ -101,7 +101,7 @@ logging.info('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image si
 
 # In[3]:
 
-model = B.getModel(3).to(device)
+model = B.getModelL(3).to(device)
 # getModel gives a model for images 512*512
 # getModel1024 gives model for images 1024*1024
 # getModel1024L gives model for images 1024*1024
@@ -116,7 +116,8 @@ correct=0
 # Train the model
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
-        images = images.to(device)
+        model.train()
+    	images = images.to(device)
         labels = labels.to(device)
         
         # Forward pass
@@ -131,7 +132,7 @@ for epoch in range(num_epochs):
         if (i+1) % 50 == 0:
             logging.info ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'.format(epoch+1, num_epochs, i+1, total_step, loss.item()))
 
-    if (epoch % 25 ==0):
+    if (epoch % 5 ==0):
 
         previouscorrect = correct
 
@@ -150,10 +151,10 @@ for epoch in range(num_epochs):
                 _, predicted = torch.max(outputs.data, 1)
                 total += labels.size(0)
                 correct += (predicted == labels).sum().item()
-                logging.info('Correct Label is : {}, Predicted Label is {}'.format(labels,predicted))
+                # logging.info('Correct Label is : {}, Predicted Label is {}'.format(labels,predicted))
 
             logging.info('Test Accuracy of the model on the {} test images: {} %'.format(number_of_testing_data,100 * correct / total))
-
+            logging.info(' Correct {} Previous correct {}'.format(correct,previouscorrect))
             if(previouscorrect<correct):
                 logging.info('Saving the model')
-                torch.save(model.state_dict(), str(str(learning_rate)+'model.ckpt'))
+                torch.save(model.state_dict(), './models/Run'+suffix+'model.ckpt')
