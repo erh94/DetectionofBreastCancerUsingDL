@@ -20,6 +20,7 @@ import matplotlib.pyplot as plt
 import graphviz
 
 from pathlib import Path
+from tqdm import tqdm
 
 
 # Model Specifics
@@ -44,7 +45,7 @@ logging.info('Device {}'.format(device))
 # Hyper parameters
 num_epochs = 150
 num_classes = 3
-batch_size = 5
+batch_size = 3
 learning_rate = 0.0001
 
 # x = torch.randn(batch_size, channels_mammo,heights_mammo , width_mammo)
@@ -101,7 +102,7 @@ logging.info('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image si
 
 # In[3]:
 
-model = B.getModelL(3).to(device)
+model = B.getModel1024L(3).to(device)
 # getModel gives a model for images 512*512
 # getModel1024 gives model for images 1024*1024
 # getModel1024L gives model for images 1024*1024
@@ -114,10 +115,10 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 correct=0
 # Train the model
-for epoch in range(num_epochs):
+for epoch in tqdm(range(num_epochs)):
     for i, (images, labels) in enumerate(train_loader):
         model.train()
-    	images = images.to(device)
+        images = images.to(device)
         labels = labels.to(device)
         
         # Forward pass
