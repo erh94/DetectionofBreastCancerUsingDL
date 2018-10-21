@@ -35,7 +35,7 @@ logtime = time.strftime("%d%b%Y %H:%M:%S",time.localtime())
 
 level = logging.INFO
 format = '%(message)s'
-handlers = [logging.FileHandler('Run{}'.format(suffix)),logging.StreamHandler()]
+handlers = [logging.FileHandler('./logs/Run{}'.format(suffix)),logging.StreamHandler()]
 logging.basicConfig(level=level,format=format,handlers=handlers)
 
 
@@ -115,7 +115,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 correct=0
 # Train the model
-for epoch in tqdm(range(num_epochs)):
+for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
         model.train()
         images = images.to(device)
@@ -130,8 +130,8 @@ for epoch in tqdm(range(num_epochs)):
         loss.backward()
         optimizer.step()
         
-        if (i+1) % 50 == 0:
-            logging.info ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'.format(epoch+1, num_epochs, i+1, total_step, loss.item()))
+        # if (i+1) % 50 == 0:
+        logging.info ('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'.format(epoch+1, num_epochs, i+1, total_step, loss.item()))
 
     if (epoch % 5 ==0):
 

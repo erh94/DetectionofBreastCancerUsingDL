@@ -24,8 +24,8 @@ import matplotlib.pyplot as plt
 import graphviz
 
 from pathlib import Path
-
-
+from userFunctions import *
+from userClass import *
 
 # Model Specifics
 # import pytorch_resnet as R
@@ -34,40 +34,40 @@ import CDDSM
 from tqdm import tqdm,tqdm_notebook
 
 import logging
+import time
+# # TensorBoard Logger
+
+# In[76]:
 
 
+# from tensorboardX import SummaryWriter
+# writer = SummaryWriter('runs',comment="pretrained")
 
-#Device Selection
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-# Hyper parameters
-num_epochs = 5
-num_classes = 3
-batch_size = 4
-learning_rate = 0.001
+suffix = time.strftime("%d%b%Y%H%M",time.localtime())
+logtime = time.strftime("%d%b%Y %H:%M:%S",time.localtime())
 
-def pause(strg):
-    if(strg!=''):
-        print('Reached at {}, Press any key to continue'.format(strg))
-    else:
-        print('Paused, Press any to continue')
-    input()
-    return
+level = logging.INFO
+format = '%(message)s'
+handlers = [logging.FileHandler('./logs/Run{}.log'.format(suffix)),logging.StreamHandler()]
+logging.basicConfig(level=level,format=format,handlers=handlers)
 
+
+logging.info("*****************PrerTrained Network Testing******************\n")
 # x = torch.randn(batch_size, channels_mammo,heights_mammo , width_mammo)
 
 
 # # Reading Standard CSV files by TCIA for test/train
 
-# In[65]:
 
-
-# device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-device ='cpu'
+#Device Selection
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+# device ='cpu'
+# Hyper parameters
 num_epochs = 100
 num_classes = 3
-batch_size = 2
-learning_rate = 0.0001
+batch_size = 5
+learning_rate = 0.001
 
 total_iteration = 10000
 img_resize =H=W=512
@@ -96,7 +96,7 @@ classes = ('BENIGN', 'BENIGN_WITHOUT_CALLBACK', 'MALIGNANT')
 dataset =  CDDSM.MammographyDataset(train_file,homedir,img_resize)
 test_dataset = CDDSM.MammographyDataset(test_file,homedir,img_resize)
 
-train_dataset , val_dataset = CDDSM.trainValSplit(dataset,val_share=0.98)
+train_dataset , val_dataset = CDDSM.trainValSplit(dataset,val_share=0.1)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
                                            batch_size=batch_size, 
                                            shuffle=True)
@@ -121,110 +121,28 @@ numberOfTestData =  test_dataset.__len__()
 
 total_step=len(train_loader)
 
-print('Size of training dataset {}'.format(numberOfTrainData))
-print('Size of Validation dataset {}'.format(numberOfValData))
-print('Size of testing dataset {}'.format(numberOfTestData))
-print('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{}\n Step {}'
+logging.info('Size of training dataset {}'.format(numberOfTrainData))
+logging.info('Size of Validation dataset {}'.format(numberOfValData))
+logging.info('Size of testing dataset {}'.format(numberOfTestData))
+logging.info('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{}\n Step {}'
         .format(num_epochs,batch_size,learning_rate,H,W,total_step))
 
 
 # # Checking images in each dataset by making grid
-
-# # trainDataset
-
-# In[68]:
-
-
-trainloader = train_loader
-import matplotlib.pyplot as plt
-import numpy as np
-
-# functions to show an image
-
-
-def imshow(img):
-#     img = img / 2 + 0.5     # unnormalize
-    npimg = img.numpy()
-    plt.imshow(np.transpose(npimg, (1, 2, 0)))
-
-
-# get some random training images
-dataiter = iter(trainloader)
-images, labels = dataiter.next()
-
-# show images
-imshow(torchvision.utils.make_grid(images))
-# print labels
-print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size)))
-
-
-# # val Dataset
-
-# In[69]:
-
-
-trainloader = val_loader
-import matplotlib.pyplot as plt
-import numpy as np
-
-# functions to show an image
-
-
-def imshow(img):
-#     img = img / 2 + 0.5     # unnormalize
-    npimg = img.numpy()
-    plt.imshow(np.transpose(npimg, (1, 2, 0)))
-
-
-# get some random training images
-dataiter = iter(trainloader)
-images, labels = dataiter.next()
-
-# show images
-imshow(torchvision.utils.make_grid(images))
-# print labels
-print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size)))
-
-
-# # test Dataset
-
-# In[70]:
-
-
-trainloader = test_loader
-import matplotlib.pyplot as plt
-import numpy as np
-
-# functions to show an image
-
-
-def imshow(img):
-#     img = img / 2 + 0.5     # unnormalize
-    npimg = img.numpy()
-    plt.imshow(np.transpose(npimg, (1, 2, 0)))
-
-
-# get some random training images
-dataiter = iter(trainloader)
-images, labels = dataiter.next()
-
-# show images
-imshow(torchvision.utils.make_grid(images))
-# print labels
-print(' '.join('%5s' % classes[labels[j]] for j in range(batch_size)))
-
 
 # # Get Model
 
 # In[71]:
 
 
-import torchvision.models as models
-resnet = models.resnet18(pretrained=True)
+
+resnet = models.resnet152(pretrained=True)
 
 
 # removing last layer of resnet and grad false
-
+features_len = resnet.fc.in_features
+# print(features_len)
+# pause('Features')
 resnet = nn.Sequential(*list(resnet.children())[:-1])
 
 
@@ -233,7 +151,7 @@ for param in resnet.parameters():
     
     
 class myCustomModel(torch.nn.Module):
-    def __init__(self,pretrainedModel):
+    def __init__(self,pretrainedModel,features_len):
         super(myCustomModel,self).__init__()
         
         self.layer0 = nn.Sequential()
@@ -242,7 +160,7 @@ class myCustomModel(torch.nn.Module):
         self.layer0.add_module('maxpool',nn.MaxPool2d(kernel_size=2))
         self.layer1 = nn.Sequential()
         self.layer1.add_module('pretrained',pretrainedModel)
-        self.fc = nn.Linear(in_features=512,out_features=3)
+        self.fc = nn.Linear(in_features=features_len,out_features=3)
     def forward(self,x):
         x = self.layer0(x)
         features = self.layer1(x)
@@ -250,8 +168,8 @@ class myCustomModel(torch.nn.Module):
         x =  self.fc(features)
         return features , x
 
-def getCustomPretrained(model):
-    return myCustomModel(model)
+def getCustomPretrained(model,features_len):
+    return myCustomModel(model,features_len)
     
     
 # parameters with parameters requires grad is True
@@ -265,74 +183,38 @@ def getCustomPretrained(model):
 
 
 # model = B.getModel(3).to(device)
-model=getCustomPretrained(resnet)
+model=getCustomPretrained(resnet,features_len)
 model=model.to(device)
 
 # store best prediction in one epoch
 
-best_prec = 0
-
-
 criterion = nn.CrossEntropyLoss()
 # optimizer = torch.optim.Adam(model.parameters(),lr=learning_rate)
-optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=0.1)
+optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=learning_rate)
 
 
-# In[73]:
 
 
-# See the architecture
-print(model)
 
-
-# In[74]:
-
-
-print(criterion)
-
-
-# In[75]:
-
-
-print(optimizer)
-
-
-# # TensorBoard Logger
-
-# In[76]:
-
-
-from tensorboardX import SummaryWriter
-writer = SummaryWriter('runs',comment="baseline")
-
-
-# # Logger
 
 # In[77]:
 
 
-suffix = time.strftime("%d%b%Y%H%M",time.localtime())
-logtime = time.strftime("%d%b%Y %H:%M:%S",time.localtime())
-
-level = logging.INFO
-format = '%(message)s'
-handlers = [logging.FileHandler('Run{}'.format(suffix)),logging.StreamHandler()]
-logging.basicConfig(level=level,format=format,handlers=handlers)
 
 
 # In[78]:
 
 
 def save_checkpoint(state,is_best,filename='./models/checkpoint.pth.tar'):
-        torch.save(state,filename)
-        if is_best:
-            shutil.copyfile(filename,'./models/model_best.pth.tar')
+    torch.save(state,filename)
+    if is_best:
+        shutil.copyfile(filename,'./models/model_best.pth.tar')
 
 
 # In[79]:
 
 
-def train(train_loader,model,criterion,optimizer,epoch,writer):
+def train(train_loader,model,criterion,optimizer,epoch):
     batch_time = AverageMeter()
     data_time = AverageMeter()
     losses = AverageMeter()
@@ -367,7 +249,7 @@ def train(train_loader,model,criterion,optimizer,epoch,writer):
         batch_time.update(time.time() - end)
         end = time.time()
 
-        print('Epoch: [{0}][{1}/{2}]\t'
+        logging.info('Epoch: [{0}][{1}/{2}]\t'
               'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
               'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
               'Accuracy {acc.val:.4f} ({acc.avg:.4f})\t'.format(
@@ -488,14 +370,15 @@ def adjust_learning_rate(optimizer,epoch,initLR):
 # In[86]:
 
 
+best_acc = 0
 
 log_freq=10
-for epoch in tqdm_notebook(range(num_epochs)):
+for epoch in range(num_epochs):
     
     adjust_learning_rate(optimizer,epoch,learning_rate)
     
     
-    train(train_loader,model,criterion,optimizer,epoch+1,writer)
+    train(train_loader,model,criterion,optimizer,epoch+1)
     
     
     
