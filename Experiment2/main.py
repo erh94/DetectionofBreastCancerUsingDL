@@ -146,8 +146,8 @@ features_len = resnet.fc.in_features
 resnet = nn.Sequential(*list(resnet.children())[:-1])
 
 
-for param in resnet.parameters():
-    param.requires_grad = False
+# for param in resnet.parameters():
+#     param.requires_grad = False
     
     
 class myCustomModel(torch.nn.Module):
@@ -205,10 +205,10 @@ optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters(
 # In[78]:
 
 
-def save_checkpoint(state,is_best,filename='./models/checkpoint.pth.tar'):
+def save_checkpoint(state,is_best,filename='./models/Unfreezecheckpoint.pth.tar'):
     torch.save(state,filename)
     if is_best:
-        shutil.copyfile(filename,'./models/model_best.pth.tar')
+        shutil.copyfile(filename,'./models/Unfreezemodel_best.pth.tar')
 
 
 # In[79]:
