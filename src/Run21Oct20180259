@@ -1,8 +1,0 @@
-Device cuda:0
-Size of training dataset 2864
-Size of testing dataset 704
-No. of Epochs: 150
- Batch size: 3
- Learning_rate : 0.0001
- Image size 1024*1024
- Step 955
