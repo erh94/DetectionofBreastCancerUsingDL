@@ -1,0 +1,9 @@
+numpy
+scipy
+sklearn
+skimage
+torch
+torchvision
+pydicom
+PIL
+pathlib
