@@ -272,8 +272,8 @@ def createTestFrame(homedir):
 # In[7]:
 
 
-train = createTrainFrame('/media/erh/BEFCFF6AFCFF1B7B/dataset/')
-test = createTestFrame('/media/erh/BEFCFF6AFCFF1B7B/dataset/')
+train = createTrainFrame(str(Path.home()))
+test = createTestFrame(str(Path.home()))
 print("Finished")
 
 
