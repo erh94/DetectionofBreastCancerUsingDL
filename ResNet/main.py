@@ -19,9 +19,9 @@ import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
 import torchvision.models as models
 
-from torchviz import make_dot
+#from torchviz import make_dot
 import matplotlib.pyplot as plt
-import graphviz
+#import graphviz
 
 from pathlib import Path
 from userFunctions import *
@@ -66,8 +66,8 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 # Hyper parameters
 num_epochs = 100
 num_classes = 3
-batch_size = 5
-learning_rate = 0.001
+batch_size = 21
+learning_rate = 0.01
 
 total_iteration = 10000
 img_resize =H=W=512
@@ -79,8 +79,8 @@ homedir
 train_df = CDDSM.createTrainFrame(homedir)
 test_df = CDDSM.createTestFrame(homedir)
 mammogram_dir = '/home/himanshu/CuratedDDSM/'
-train_file = mammogram_dir+'train.csv'
-test_file = mammogram_dir+'test.csv'
+train_file = 'train.csv'
+test_file = 'test.csv'
 train_df.to_csv(train_file)
 test_df.to_csv(test_file)
 
@@ -136,7 +136,7 @@ logging.info('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image si
 
 
 
-resnet = models.resnet152(pretrained=True)
+resnet = models.resnet18(pretrained=True)
 
 
 # removing last layer of resnet and grad false

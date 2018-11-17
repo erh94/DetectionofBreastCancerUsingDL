@@ -15,9 +15,9 @@ import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
 import torchvision.models as models
 
-from torchviz import make_dot
+#from torchviz import make_dot
 import matplotlib.pyplot as plt
-import graphviz
+#import graphviz
 
 from pathlib import Path
 from tqdm import tqdm
@@ -40,13 +40,13 @@ logging.basicConfig(level=level,format=format,handlers=handlers)
 
 
 #Device Selection
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
 logging.info('Device {}'.format(device))
 # Hyper parameters
-num_epochs = 150
+num_epochs = 200
 num_classes = 3
-batch_size = 3
-learning_rate = 0.0001
+batch_size = 5
+learning_rate = 0.01
 
 # x = torch.randn(batch_size, channels_mammo,heights_mammo , width_mammo)
 
@@ -62,8 +62,8 @@ homedir
 train_df = CDDSM.createTrainFrame(homedir)
 test_df = CDDSM.createTestFrame(homedir)
 mammogram_dir = '/home/himanshu/CuratedDDSM/'
-train_file = mammogram_dir+'train.csv'
-test_file = mammogram_dir+'test.csv'
+train_file = 'train.csv'
+test_file = 'test.csv'
 train_df.to_csv(train_file)
 test_df.to_csv(test_file)
 
@@ -74,9 +74,10 @@ test_df.to_csv(test_file)
 classes = ('BENIGN', 'BENIGN_WITHOUT_CALLBACK', 'MALIGNANT')
 
 #Image size
-img_resize=H=W=1024
+img_resize=H=W=512
 
 # Mammography dataset
+
 train_dataset =  CDDSM.MammographyDataset(train_file,homedir,img_resize)
 test_dataset = CDDSM.MammographyDataset(test_file,homedir,img_resize)
 # Data loader
@@ -102,7 +103,7 @@ logging.info('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image si
 
 # In[3]:
 
-model = B.getModel1024L(3).to(device)
+model = B.getModel(3).to(device)
 # getModel gives a model for images 512*512
 # getModel1024 gives model for images 1024*1024
 # getModel1024L gives model for images 1024*1024
