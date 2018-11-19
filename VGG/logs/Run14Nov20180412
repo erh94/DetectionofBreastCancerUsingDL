@@ -1,0 +1,37 @@
+Device cuda:1
+Size of training dataset 2864
+Size of testing dataset 704
+No. of Epochs: 200
+ Batch size: 5
+ Learning_rate : 0.01
+ Image size 512*512
+ Step 573
+Epoch [1/200], Step [1/573], Loss: 1.1005
+Epoch [1/200], Step [2/573], Loss: 1.9137
+Epoch [1/200], Step [3/573], Loss: 1078.8323
+Epoch [1/200], Step [4/573], Loss: 341.2227
+Epoch [1/200], Step [5/573], Loss: 7711.0576
+Epoch [1/200], Step [6/573], Loss: 1278.1896
+Epoch [1/200], Step [7/573], Loss: 4208.0850
+Epoch [1/200], Step [8/573], Loss: 3003.3081
+Epoch [1/200], Step [9/573], Loss: 451.2342
+Epoch [1/200], Step [10/573], Loss: 899.6909
+Epoch [1/200], Step [11/573], Loss: 30.6716
+Epoch [1/200], Step [12/573], Loss: 20647.4824
+Epoch [1/200], Step [13/573], Loss: 2627.0417
+Epoch [1/200], Step [14/573], Loss: 2232.3879
+Epoch [1/200], Step [15/573], Loss: 686.9165
+Epoch [1/200], Step [16/573], Loss: 2296.0159
+Epoch [1/200], Step [17/573], Loss: 1357.6893
+Epoch [1/200], Step [18/573], Loss: 17981.5039
+Epoch [1/200], Step [19/573], Loss: 6606.5869
+Epoch [1/200], Step [20/573], Loss: 4805.2490
+Epoch [1/200], Step [21/573], Loss: 1273.4098
+Epoch [1/200], Step [22/573], Loss: 6961.6260
+Epoch [1/200], Step [23/573], Loss: 1797.7195
+Epoch [1/200], Step [24/573], Loss: 1547.1871
+Epoch [1/200], Step [25/573], Loss: 3034.6318
+Epoch [1/200], Step [26/573], Loss: 5569.5024
+Epoch [1/200], Step [27/573], Loss: 2169.2876
+Epoch [1/200], Step [28/573], Loss: 2150.9092
+Epoch [1/200], Step [29/573], Loss: 612.1400
