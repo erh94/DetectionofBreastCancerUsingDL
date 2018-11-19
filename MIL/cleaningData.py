@@ -133,7 +133,7 @@ def createTestFrame(homedir):
     test['image file path'] = homedir+'/CuratedDDSM/Test/'+test['image file path'] 
     test['ROI mask file path'] = homedir+'/CuratedDDSM/Test/'+test['ROI mask file path']
 
-    train=train[train.pathology!='BENIGN_WITHOUT_CALLBACK']
+    test=test[test.pathology!='BENIGN_WITHOUT_CALLBACK']
 
     test['cropped image file path'] = homedir+'/CuratedDDSM/Test/'+test['cropped image file path']
     test['pathology_class'] = LabelEncoder().fit_transform(test['pathology'])
