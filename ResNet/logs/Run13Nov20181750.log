@@ -1,0 +1,10 @@
+*****************PrerTrained Network Testing******************
+
+Size of training dataset 2577
+Size of Validation dataset 287
+Size of testing dataset 704
+No. of Epochs: 100
+ Batch size: 10
+ Learning_rate : 0.01
+ Image size 512*512
+ Step 258

@@ -1,0 +1,13 @@
+*****************PrerTrained Network Testing******************
+
+Size of training dataset 2577
+Size of Validation dataset 287
+Size of testing dataset 704
+No. of Epochs: 100
+ Batch size: 21
+ Learning_rate : 0.01
+ Image size 512*512
+ Step 123
+Epoch: [1][0/123]	Time 20.914 (20.914)	Loss 0.8973 (0.8973)	Accuracy 0.5238 (0.5238)	
+Epoch: [1][1/123]	Time 10.472 (15.693)	Loss 5.7488 (3.3231)	Accuracy 0.3810 (0.4524)	
+Epoch: [1][2/123]	Time 17.916 (16.434)	Loss 4.8447 (3.8303)	Accuracy 0.1429 (0.3492)	
