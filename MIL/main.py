@@ -1,15 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[64]:
-
-
 import os
 import sys
-
-import argparse
-import shutil
-import time
 
 import math
 import torch
@@ -18,83 +11,52 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
 import torchvision.models as models
-
-from torchviz import make_dot
 import matplotlib.pyplot as plt
-import graphviz
-
 from pathlib import Path
-from userFunctions import *
-from userClass import *
-
-# Model Specifics
-# import pytorch_resnet as R
-import BaseModel as B
 import CDDSM
-from tqdm import tqdm,tqdm_notebook
-
-import logging
-import time
-# # TensorBoard Logger
-
-# In[76]:
-
-
-# from tensorboardX import SummaryWriter
-# writer = SummaryWriter('runs',comment="pretrained")
-
-
-suffix = time.strftime("%d%b%Y%H%M",time.localtime())
-logtime = time.strftime("%d%b%Y %H:%M:%S",time.localtime())
-
-level = logging.INFO
-format = '%(message)s'
-handlers = [logging.FileHandler('./logs/Run{}.log'.format(suffix)),logging.StreamHandler()]
-logging.basicConfig(level=level,format=format,handlers=handlers)
-
-
-logging.info("*****************PrerTrained Network Testing******************\n")
-# x = torch.randn(batch_size, channels_mammo,heights_mammo , width_mammo)
-
-
-# # Reading Standard CSV files by TCIA for test/train
-
+from tqdm import tqdm
 
 #Device Selection
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-# device ='cpu'
-# Hyper parameters
-num_epochs = 100
-num_classes = 3
-batch_size = 5
-learning_rate = 0.001
 
-total_iteration = 10000
-img_resize =H=W=512
+# Hyper parameters
+num_epochs = 500
+batch_size = 1
+learning_rate = 0.01
+num_classes = 2
+patch_size =H=W=512
+
+
+def pause(strg):
+    if(strg!=''):
+        print('Reached at {}, Press any key to continue'.format(strg))
+    else:
+        print('Paused, Press any to continue')
+    input()
+    return
 
 
 homedir = str(Path.home())
-homedir
+print(homedir)
 
-train_df = CDDSM.createTrainFrame(homedir)
-test_df = CDDSM.createTestFrame(homedir)
-mammogram_dir = '/home/himanshu/CuratedDDSM/'
-train_file = mammogram_dir+'train.csv'
-test_file = mammogram_dir+'test.csv'
-train_df.to_csv(train_file)
-test_df.to_csv(test_file)
+# train_df = CDDSM.createTrainFrame(homedir)
+# test_df = CDDSM.createTestFrame(homedir)
+# mammogram_dir = '/home/himanshu/CuratedDDSM/'
+# train_file = mammogram_dir+'train.csv'
+# test_file = mammogram_dir+'test.csv'
+# train_df.to_csv(train_file)
+# test_df.to_csv(test_file)
 
-classes = ('BENIGN', 'BENIGN_WITHOUT_CALLBACK', 'MALIGNANT')
-                
+# classes = ('BENIGN', 'BENIGN_WITHOUT_CALLBACK', 'MALIGNANT')
+# Created a cleaned data file in train.csv and test.csv
 
+train_file = 'train.csv'
+test_file = 'test.csv'
 
-# # Making of CBIS-DDSM Dataset (train,val,test)
+# Making of CBIS-DDSM Dataset (train,val,test)
 
-# In[66]:
-
-
-dataset =  CDDSM.MammographyDataset(train_file,homedir,img_resize)
-test_dataset = CDDSM.MammographyDataset(test_file,homedir,img_resize)
+dataset =  CDDSM.MammographyDataset(train_file,homedir,patch_size)
+test_dataset = CDDSM.MammographyDataset(test_file,homedir,patch_size)
 
 train_dataset , val_dataset = CDDSM.trainValSplit(dataset,val_share=0.1)
 train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
@@ -109,11 +71,7 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           batch_size=batch_size, 
                                           shuffle=False)
 
-
-# # Length of each Dataset
-
-# In[67]:
-
+# Length of each Dataset
 
 numberOfTrainData = train_dataset.__len__()
 numberOfValData = val_dataset.__len__()
@@ -121,37 +79,28 @@ numberOfTestData =  test_dataset.__len__()
 
 total_step=len(train_loader)
 
-logging.info('Size of training dataset {}'.format(numberOfTrainData))
-logging.info('Size of Validation dataset {}'.format(numberOfValData))
-logging.info('Size of testing dataset {}'.format(numberOfTestData))
-logging.info('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{}\n Step {}'
+print('Size of training dataset {}'.format(numberOfTrainData))
+print('Size of Validation dataset {}'.format(numberOfValData))
+print('Size of testing dataset {}'.format(numberOfTestData))
+print('No. of Epochs: {}\n Batch size: {}\n Learning_rate : {}\n Image size {}*{}\n Step {}'
         .format(num_epochs,batch_size,learning_rate,H,W,total_step))
 
 
-# # Checking images in each dataset by making grid
-
-# # Get Model
-
-# In[71]:
-
-
-
-resnet = models.resnet152(pretrained=True)
+import torchvision.models as models
+resnet = models.resnet18(pretrained=True)
 
 
 # removing last layer of resnet and grad false
-features_len = resnet.fc.in_features
-# print(features_len)
-# pause('Features')
+
 resnet = nn.Sequential(*list(resnet.children())[:-1])
 
 
-# for param in resnet.parameters():
-#     param.requires_grad = False
+for param in resnet.parameters():
+    param.requires_grad = False
     
     
 class myCustomModel(torch.nn.Module):
-    def __init__(self,pretrainedModel,features_len):
+    def __init__(self,pretrainedModel):
         super(myCustomModel,self).__init__()
         
         self.layer0 = nn.Sequential()
@@ -160,16 +109,17 @@ class myCustomModel(torch.nn.Module):
         self.layer0.add_module('maxpool',nn.MaxPool2d(kernel_size=2))
         self.layer1 = nn.Sequential()
         self.layer1.add_module('pretrained',pretrainedModel)
-        self.fc = nn.Linear(in_features=features_len,out_features=3)
+        self.fc = nn.Linear(in_features=512,out_features=num_classes)
     def forward(self,x):
         x = self.layer0(x)
         features = self.layer1(x)
         features = features.view(features.size(0), -1)
         x =  self.fc(features)
         return features , x
+        
 
-def getCustomPretrained(model,features_len):
-    return myCustomModel(model,features_len)
+def getCustomPretrained(model):
+    return myCustomModel(model)
     
     
 # parameters with parameters requires grad is True
@@ -179,37 +129,115 @@ def getCustomPretrained(model,features_len):
 # model = B.getModel(3).to(device)
 
 
-# In[72]:
+# # MIL Loss Function
+
+# In[ ]:
+
+
+# x = torch.randn(21, 1,512 ,512)
+# x=x.to(device)
+# features,y = model(x)
+# y
+
+
+# In[ ]:
+
+
+# label = torch.autograd.Variable(torch.tensor([0])).cuda()
+# label
+
+
+# In[ ]:
+
+
+# scores = y
+# class_label = torch.autograd.Variable(torch.tensor([1,0])).cuda()
+# scores =  torch.autograd.Variable(scores)
+
+
+# In[ ]:
+
+
+0.17 * 0.5
+
+
+# In[ ]:
+
+
+# print(scores)
+# scores =  F.relu(scores)
+# lamda = 0.5
+# scores =  torch.mul(scores,lamda)
+# print(scores)
+# prob = torch.exp(-scores)
+# prob_of_bag_not_class = torch.prod(prob,dim=0)
+# print(prob_of_bag_not_class)
+# neglogbag = - torch.log(prob_of_bag)
+# print(neglogbag)
+# print(class_label)
+# torch.dot(1-class_label.float(),neglogbag.float())
+# prob_of_bag_class = 1 - prob_of_bag_not_class
+# sum_scores =-torch.sum(scores,dim=0)
+# print(sum_scores)
+# print(prob_of_bag_class)
+# -torch.dot(1-class_label.float(),sum_scores.float())
+
+
+# In[ ]:
+
+
+# scores = y
+# class_label = torch.autograd.Variable(torch.tensor([1,0])).cuda()
+# scores =  torch.autograd.Variable(scores)
+
+
+# In[ ]:
+
+
+class MIL_loss(torch.nn.Module):
+    ''' MIL Loss Layer'''
+    def __init__(self,lamda):
+        super(MIL_loss, self).__init__()
+        self.lamda = lamda
+        
+    def forward(self,scores,labels):
+        ''' lamda is postive constant,
+        to convert scores(h_i) into probability'''
+        lamda = self.lamda
+        scores =  F.relu(scores)
+        scores = -(lamda * scores)
+        prob_of_bag_not_class = torch.prod(torch.exp(scores),dim=0)
+        probBag = 1 - prob_of_bag_not_class
+        sum_scores = torch.sum(scores,dim=0)
+        loss = -torch.dot(1-labels.float(),sum_scores.float())
+        return loss,probBag
+
+# def prediction(scores,labels,lamda):
+#     scores =  scores.data
+# In[ ]:
 
 
 # model = B.getModel(3).to(device)
-model=getCustomPretrained(resnet,features_len)
+model=getCustomPretrained(resnet)
 model=model.to(device)
 
 # store best prediction in one epoch
 
-criterion = nn.CrossEntropyLoss()
+best_prec = 0
+
+# criterion = nn.CrossEntropyLoss()
+criterion = MIL_loss(0.5)
 # optimizer = torch.optim.Adam(model.parameters(),lr=learning_rate)
-optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=learning_rate)
+optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=0.1)
 
 
+def save_checkpoint(state,is_best,filename='./models/checkpoint.pth.tar'):
+        torch.save(state,filename)
+        if is_best:
+            shutil.copyfile(filename,'./models/model_best.pth.tar')
 
 
-
-
-# In[77]:
-
-
-
-
-# In[78]:
-
-
-def save_checkpoint(state,is_best,filename='./models/Unfreezecheckpoint.pth.tar'):
-    torch.save(state,filename)
-    if is_best:
-        shutil.copyfile(filename,'./models/Unfreezemodel_best.pth.tar')
-
+# In[ ]:
 
 # In[79]:
 
@@ -229,14 +257,14 @@ def train(train_loader,model,criterion,optimizer,epoch):
         labels = labels.to(device)
         
         #output = model(images)
-        _,output = model(images)
+        _,scores = model(images)
         # for resnet returns features and output
         # print(type(output))
-        loss = criterion(output,labels)
+        loss,pred = criterion(scores,labels)
         
         # top-k ? accuaracy 
         # for now evaluating normal accuracy
-        acc = accuracy(output,labels)
+        acc = accuracy(pred,labels)
         
         #loss.item() to get the loss value from loss tensor
         losses.update(loss.item(), images.size(0))
@@ -403,16 +431,4 @@ for epoch in range(num_epochs):
         test(test_loader=test_loader,model=model)
         
 test(test_loader,model)
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 

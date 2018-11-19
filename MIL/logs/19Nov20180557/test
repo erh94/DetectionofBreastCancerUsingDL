@@ -1,0 +1,5 @@
+*******************MIL CNN*********************
+Size of training dataset 1998
+Size of Validation dataset 223
+Size of testing dataset 689
+Epoch	Accuracy	AverageAccuracy	TruePositive	TrueNegative	FalsePositive	FalseNegative	Path
