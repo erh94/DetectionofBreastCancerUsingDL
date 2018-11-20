@@ -1,0 +1,5 @@
+*******************MIL CNN*********************
+Size of training dataset 1998
+Size of Validation dataset 223
+Size of testing dataset 585
+Epoch	BatchTime	AverageBatchTime	Loss	AverageLoss	Accuracy	AverageAccuracy
