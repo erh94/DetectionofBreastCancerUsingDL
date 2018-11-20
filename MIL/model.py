@@ -25,7 +25,7 @@ class myCustomModel(torch.nn.Module):
         x =  self.fc(features)
         return x, self.prediction(x)
     def prediction(self,x):
-        predBag=1-torch.prod(torch.exp(torch.mul(F.relu(x),-0.5)),dim=0)
+        predBag=1-torch.prod(torch.exp(torch.mul(F.relu(x),-0.001)),dim=0)
         return predBag
 
 def getCustomPretrained(model,num_classes):

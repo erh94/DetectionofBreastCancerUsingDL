@@ -67,8 +67,10 @@ total_step=len(trainLoader)
 resnet = models.resnet18(pretrained=True)
 resnet = nn.Sequential(*list(resnet.children())[:-1])
 model = getCustomPretrained(resnet,classes)
-criterion = MIL_loss(0.5)
-optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad,model.parameters()),lr=lr)
+criterion = MIL_loss(0.001)
+#optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad,model.parameters()),lr=lr)
+optimizer = torch.optim.SGD(filter(lambda p: p.requires_grad,model.parameters()),lr=lr,weight_decay=0.0001,momentum=0.9)
+
 model = model.to(device)
 
 
@@ -156,7 +158,7 @@ def confusionMatrix(pred,labels):
     b=pred.argmax().cpu().numpy()
 
     if(a==0 and b==0):
-        tn = 1
+        tn=1
     elif(a==0 and b==1):
         fp=1
     elif(a==1 and b==0):
@@ -178,6 +180,8 @@ def test(testLoader,model,epoch):
     falsenegative = AverageMeter()
     accuracy = AverageMeter()
     
+    true = []
+    predicted = []
     model.eval()
     with torch.no_grad():
         for i,(batch,bag_label,path) in enumerate(testLoader):
@@ -189,7 +193,10 @@ def test(testLoader,model,epoch):
             acc = accuracyperImage(pred,labels)
             
             tp,fp,fn,tn = confusionMatrix(pred,labels)
-            
+            a=labels.argmax().cpu().numpy()
+            b=pred.argmax().cpu().numpy()
+            true.append(a)
+            predicted.append(b)
             truepositive.update(tp)
             truenegative.update(tn)
             falsepositive.update(fp)
@@ -197,20 +204,18 @@ def test(testLoader,model,epoch):
             accuracy.update(acc)
             #logger('Epoch\tAccuracy\tAverageAccuracy\tTruePositive\tTrueNegative\tFalsePositive\tFalseNegative\tPath','info','testlog')
             logger('{0}\t{ac.val:.2f}\t{ac.avg:.6f}\t{tp.sum:.2f}\t{tn.sum:.2f}\t{fp.sum:.2f}\t{fn.sum:.2f}\t{p}'
-                   .format(i,ac=accuracy,tp=truepositive,tn=truenegative,
+                   .format(epoch,ac=accuracy,tp=truepositive,tn=truenegative,
                            fp=falsepositive,fn=falsenegative,p=path),'info','testlog')
 
                    
-    print('Average Accuracy :',accuracy.avg)
+    logger('true predicted :\n{}\n{}'.format(true,predicted),'info','testlog')
+    print(true)
+    print(predicted)
 
 
 
 
 def train(train_loader,model,criterion,optimizer,epoch):
-    batch_time = AverageMeter()
-    data_time = AverageMeter()
-    losses = AverageMeter()
-    avgaccu =  AverageMeter()
     
     model.train()
 
@@ -303,7 +308,10 @@ basiclogging('testlog')
 basiclogging('vadLog')
 
 
-
+batch_time = AverageMeter()
+data_time = AverageMeter()
+losses = AverageMeter()
+avgaccu =  AverageMeter()
 
 # # Training Loop
 
