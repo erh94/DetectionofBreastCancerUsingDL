@@ -119,7 +119,7 @@ class MammographyDataset(Dataset):
         # Get label(class) of the image based on the cropped pandas column
         image_label = self.label_arr[index]
 
-        return (img_as_tensor, image_label)
+        return (img_as_tensor, image_label,image_path)
 
 
 

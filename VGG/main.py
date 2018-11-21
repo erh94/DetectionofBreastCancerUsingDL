@@ -40,7 +40,7 @@ logging.basicConfig(level=level,format=format,handlers=handlers)
 
 
 #Device Selection
-device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 logging.info('Device {}'.format(device))
 # Hyper parameters
 num_epochs = 200
