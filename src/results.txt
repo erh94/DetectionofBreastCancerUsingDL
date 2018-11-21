@@ -1,0 +1,343 @@
+Size of training dataset 2864
+Size of testing dataset 704
+No. of Epochs: 5
+ Batch size: 4
+ Learning_rate : 0.001
+ Image size 512*512
+ Step 716
+Size of training dataset 2864
+Size of testing dataset 704
+No. of Epochs: 5
+ Batch size: 4
+ Learning_rate : 0.001
+ Image size 512*512
+ Step 716
+Epoch [1/5], Step [100/716], Loss: 1.4214
+Epoch [1/5], Step [200/716], Loss: 1.9104
+Epoch [1/5], Step [300/716], Loss: 1.1556
+Epoch [1/5], Step [400/716], Loss: 0.8971
+Epoch [1/5], Step [500/716], Loss: 1.6054
+Epoch [1/5], Step [600/716], Loss: 1.1683
+Epoch [1/5], Step [700/716], Loss: 1.2012
+Epoch [2/5], Step [100/716], Loss: 1.0660
+Epoch [2/5], Step [200/716], Loss: 0.9757
+Epoch [2/5], Step [300/716], Loss: 0.9106
+Epoch [2/5], Step [400/716], Loss: 0.9686
+Epoch [2/5], Step [500/716], Loss: 1.0504
+Epoch [2/5], Step [600/716], Loss: 1.0376
+Epoch [2/5], Step [700/716], Loss: 0.9797
+Epoch [3/5], Step [100/716], Loss: 0.9612
+Epoch [3/5], Step [200/716], Loss: 1.6812
+Epoch [3/5], Step [300/716], Loss: 1.3158
+Epoch [3/5], Step [400/716], Loss: 1.0001
+Epoch [3/5], Step [500/716], Loss: 1.0973
+Epoch [3/5], Step [600/716], Loss: 1.1155
+Epoch [3/5], Step [700/716], Loss: 1.2384
+Epoch [4/5], Step [100/716], Loss: 0.4462
+Epoch [4/5], Step [200/716], Loss: 3.3536
+Epoch [4/5], Step [300/716], Loss: 1.2438
+Epoch [4/5], Step [400/716], Loss: 1.2492
+Epoch [4/5], Step [500/716], Loss: 1.3549
+Epoch [4/5], Step [600/716], Loss: 1.7585
+Epoch [4/5], Step [700/716], Loss: 1.1663
+Epoch [5/5], Step [100/716], Loss: 0.9424
+Epoch [5/5], Step [200/716], Loss: 1.1618
+Epoch [5/5], Step [300/716], Loss: 1.1619
+Epoch [5/5], Step [400/716], Loss: 1.1686
+Epoch [5/5], Step [500/716], Loss: 1.0148
+Epoch [5/5], Step [600/716], Loss: 0.8474
+Epoch [5/5], Step [700/716], Loss: 1.0249
+
+ *********************Testing on CBIS-DDSM test data************************
+
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 1, 1, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 1, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 0, 0, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 0, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 1, 1, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 1, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 1, 1, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 1, 1, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 1, 1, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2], device='cuda:0')
+Test Accuracy of the model on the 704 test images: 39.20454545454545 %
+Size of training dataset 2864
+Size of testing dataset 704
+No. of Epochs: 5
+ Batch size: 4
+ Learning_rate : 0.0001
+ Image size 512*512
+ Step 716
+Size of training dataset 2864
+Size of testing dataset 704
+No. of Epochs: 5
+ Batch size: 10
+ Learning_rate : 0.0001
+ Image size 512*512
+ Step 287
+Epoch [1/5], Step [50/287], Loss: 1.0350
+Epoch [1/5], Step [100/287], Loss: 1.2516
+Epoch [1/5], Step [150/287], Loss: 0.8924
+Epoch [1/5], Step [200/287], Loss: 1.1856
+Epoch [1/5], Step [250/287], Loss: 1.1904
+Epoch [2/5], Step [50/287], Loss: 1.0784
+Epoch [2/5], Step [100/287], Loss: 1.2894
+Epoch [2/5], Step [150/287], Loss: 1.0824
+Epoch [2/5], Step [200/287], Loss: 0.9169
+Epoch [2/5], Step [250/287], Loss: 1.0798
+Epoch [3/5], Step [50/287], Loss: 1.0862
+Epoch [3/5], Step [100/287], Loss: 1.2009
+Epoch [3/5], Step [150/287], Loss: 1.1391
+Epoch [3/5], Step [200/287], Loss: 1.0054
+Epoch [3/5], Step [250/287], Loss: 0.9703
+Epoch [4/5], Step [50/287], Loss: 1.0999
+Epoch [4/5], Step [100/287], Loss: 1.1549
+Epoch [4/5], Step [150/287], Loss: 1.0191
+Epoch [4/5], Step [200/287], Loss: 0.9557
+Epoch [4/5], Step [250/287], Loss: 1.0723
+Epoch [5/5], Step [50/287], Loss: 1.0379
+Epoch [5/5], Step [100/287], Loss: 1.1456
+Epoch [5/5], Step [150/287], Loss: 1.1783
+Epoch [5/5], Step [200/287], Loss: 0.9344
+Epoch [5/5], Step [250/287], Loss: 0.9585
+
+ *********************Testing on CBIS-DDSM test data************************
+
+Correct Label is : tensor([2, 2, 2, 2, 0, 0, 2, 2, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 0, 2, 0, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 1, 2, 2, 2, 2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 2, 2, 0, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 0, 2], device='cuda:0')
+Correct Label is : tensor([1, 0, 0, 0, 0, 0, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([0, 2, 2, 0, 2, 0, 0, 0, 0, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2, 2, 2, 1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 0, 2, 2, 2, 2, 0, 2, 0, 0], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0, 2, 2, 2, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 0, 0, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2, 2, 2, 2, 0, 1, 1], device='cuda:0'), Predicted Label is tensor([0, 2, 2, 2, 2, 0, 0, 2, 0, 0], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1, 2, 2, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([0, 0, 0, 0, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 0, 0, 0, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 1, 0, 0, 0, 0, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 0, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 2, 2, 2, 2, 2, 1, 1, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 0, 0, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 0, 0, 2, 2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 0, 0, 0, 0, 0, 0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([0, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 2, 0, 0, 0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 0, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2, 2, 0, 2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 0, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2, 2, 0, 0, 1, 1, 0], device='cuda:0'), Predicted Label is tensor([0, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 1, 1, 1, 1, 2, 2, 2, 2, 1], device='cuda:0'), Predicted Label is tensor([2, 0, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2, 1, 0, 2, 0, 2, 0], device='cuda:0'), Predicted Label is tensor([0, 2, 0, 2, 0, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 2, 2, 2, 2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 0, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0, 0, 0, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 0, 0, 0, 2, 2, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 2, 2, 2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 0, 0, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 2, 0, 0, 0, 0, 0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 0, 0, 0, 0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 0, 2, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2, 2, 0, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 0, 2, 0, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 1, 1, 2, 2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 1, 0, 0, 0, 1, 1, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 0, 0, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 0, 2, 0, 0, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 0, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2, 0, 0, 2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0, 0, 0, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 0, 0, 0, 0, 0, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 2, 2, 2, 2, 2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 0, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 0, 2, 2, 2, 2, 2, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2, 2, 0, 0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([0, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1, 2, 2, 2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([0, 0, 2, 2, 2, 2, 2, 2, 0, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1, 1, 1, 1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([0, 0, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 0, 0, 2, 2, 0, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 0, 0, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1, 1, 0, 0, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 0, 0, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 0, 0, 2, 2, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 0, 2, 0, 0, 0, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 0, 0, 0, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0, 2, 2, 2, 2, 2, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 0, 0, 2, 0, 2, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([1, 2, 2, 0, 0, 2, 2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 0, 0, 0, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1, 1, 1, 2, 2, 2, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 0, 0, 2, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1, 1, 2, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([0, 2, 2, 0, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2, 2, 2, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2, 2, 2, 0, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 1, 1, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 0, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2, 2, 2, 2, 2, 2, 1], device='cuda:0'), Predicted Label is tensor([2, 0, 0, 2, 2, 0, 0, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([1, 2, 2, 2, 2, 2, 2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([0, 0, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 0, 0, 0, 0, 0, 0], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2, 2, 2, 2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2, 2, 2, 2, 2, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 0, 0, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([1, 1, 1, 1, 2, 2, 1, 1, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 0, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0, 0, 0, 2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 0, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 1, 1, 0, 0, 2, 2, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 0, 0, 2, 2, 0, 0, 2, 2, 0], device='cuda:0')
+Correct Label is : tensor([0, 1, 1, 0, 0, 0, 0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([0, 0, 2, 0, 0, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 1, 1, 1, 1, 1, 1, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 0, 0, 0, 0, 0, 0, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 2, 2, 0, 0, 2, 2, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 0, 0, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0, 2, 2, 2, 2, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 0, 0, 2, 2, 0, 0, 0], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 0, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 2, 2, 2, 2, 0, 0, 0, 0, 2], device='cuda:0'), Predicted Label is tensor([2, 0, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 0, 0, 0, 0, 2, 2, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 2, 2, 1, 1, 1, 1], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 0, 0, 0, 0, 2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 0, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 0, 0, 0, 0, 2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 2, 2, 2, 2, 2, 2, 2, 2, 2], device='cuda:0')
+Correct Label is : tensor([0, 0, 2, 2], device='cuda:0'), Predicted Label is tensor([2, 0, 2, 2], device='cuda:0')
+Test Accuracy of the model on the 704 test images: 43.03977272727273 %
