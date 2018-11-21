@@ -12,7 +12,12 @@ from torchvision import transforms, utils
 from PIL import Image
 from pathlib import Path
 from sklearn.preprocessing import LabelEncoder
+<<<<<<< HEAD
 from skimage import img_as_float
+=======
+
+
+>>>>>>> master
 
 
 # # In[2]:
@@ -108,7 +113,11 @@ class MammographyDataset(Dataset):
         
         image_2d = image_dcm.pixel_array.astype(float)
         image_2d_scaled = (np.maximum(image_2d,0)/ image_2d.max()) * 255.0
+<<<<<<< HEAD
         image_2d_scaled = img_as_float(image_2d_scaled)
+=======
+        image_2d_scaled = np.uint8(image_2d_scaled)
+>>>>>>> master
         #Transform image to 512 * 512 
         img = Image.fromarray(image_2d_scaled)
         img_as_img = self.transformations(img)
