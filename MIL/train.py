@@ -27,8 +27,18 @@ from model import *
 # In[2]:
 
 
+import argparse
 
-numEpochs = 200
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--resume', default='', type=str, metavar='PATH',
+                    help='path to latest checkpoint (default: none)')
+
+args =  parser.parse_args()
+
+
+
+numEpochs = 800
 batchSize = 1
 lr = 0.01
 classes = 2
@@ -48,7 +58,7 @@ experimentName = time.strftime("%d%b%Y%H%M",time.localtime())
 
 dataset = MammographyDataset(trainFile,homedir,patchSize,mode='train')
 testDataset = MammographyDataset(testFile,homedir,patchSize,mode='test')
-trainDataset , valDataset = trainValSplit(dataset,val_share=0.1)
+trainDataset , valDataset = trainValSplit(dataset,val_share=0.20)
 trainLoader = DataLoader(trainDataset,batchSize,shuffle=True)
 valLoader = DataLoader(valDataset,batchSize,shuffle=True)
 #------------- test transformation should be stop-------------#
@@ -67,11 +77,41 @@ total_step=len(trainLoader)
 resnet = models.resnet18(pretrained=True)
 resnet = nn.Sequential(*list(resnet.children())[:-1])
 model = getCustomPretrained(resnet,classes)
+
 criterion = MIL_loss(0.001)
 #optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad,model.parameters()),lr=lr)
-optimizer = torch.optim.SGD(filter(lambda p: p.requires_grad,model.parameters()),lr=lr,weight_decay=0.0001,momentum=0.9)
+optimizer = torch.optim.SGD(filter(lambda p: p.requires_grad,model.parameters()),lr=lr)
 
 model = model.to(device)
+
+
+
+
+
+
+
+#################### start epoch and best_acc ##############################
+
+start_epoch = 0
+best_acc = 0
+
+
+
+if args.resume:
+    if os.path.isfile(args.resume):
+        print("=> loading checkpoint '{}'".format(args.resume))
+        checkpoint = torch.load(args.resume)
+        start_epoch = checkpoint['epoch']
+        best_acc = checkpoint['best_acc']
+        model.load_state_dict(checkpoint['state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer'])
+        print("=> loaded checkpoint '{}' (epoch {})".format(args.resume, checkpoint['epoch']))
+        logger('Resumed from {}'.format(args.resume),'info','infoFile')
+    else:
+        print("=> no checkpoint found at '{}'".format(args.resume))
+        start_epoch=0
+
+######################## RESUME END #################################
 
 
 
@@ -297,9 +337,9 @@ def validate(val_loader, model, criterion):
 # In[11]:
 
 
-trainLogFile = openfile('./logs/'+experimentName+'/train')
-valLogFile = openfile('./logs/'+experimentName+'/validation')
-testLogFile = openfile('./logs/'+experimentName+'/test')
+trainLogFile = openfile('./logs/'+experimentName+'/train.tsv')
+valLogFile = openfile('./logs/'+experimentName+'/validation.tsv')
+testLogFile = openfile('./logs/'+experimentName+'/test.tsv')
 setup_logger('trainlog',trainLogFile)
 setup_logger('testlog',testLogFile)
 setup_logger('vadLog',valLogFile)
@@ -317,31 +357,34 @@ avgaccu =  AverageMeter()
 
 # In[ ]:
 
-
-best_acc=0
-
-for epoch in range(numEpochs):
+for epoch in range(start_epoch , numEpochs):
+       
+    adjust_learning_rate(optimizer,epoch,lr)
     
-    adjust_learning_rate(optimizer,epoch+1,lr)
     
     train(trainLoader,model,criterion,optimizer,epoch+1)
     
     
     
-    acc = validate(valLoader,model,criterion)
+    acc =  validate(valLoader,model,criterion)
+    
+    
     
     is_best = acc > best_acc
     
     best_acc = max(acc,best_acc)
     
+    #is_best=False
+    #saving the checkpoint if is_best is True
     save_checkpoint({
         'epoch':epoch+1,
         'state_dict':model.state_dict(),
-        'best_acc': best_acc,
+        'best_acc':best_acc,
         'optimizer':optimizer.state_dict(),
     },is_best)
-
-    test(testLoader,model,epoch+1)
+    
+    if(is_best):
+        test(testLoader,model,epoch+1)
     
 
 

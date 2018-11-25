@@ -11,12 +11,12 @@ from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms, utils
 from PIL import Image, ImageOps, ImageEnhance
 from sklearn.preprocessing import LabelEncoder
-from skimage import img_as_float
 import torchvision
 import torch
 from sklearn.feature_extraction.image import extract_patches_2d
 import PIL
 from skimage.util import img_as_bool
+from skimage import img_as_float
 
 
 
@@ -82,7 +82,7 @@ class MammographyDataset(Dataset):
 
         img = np.asarray(imgPIL)
 
-        
+        img = img_as_float(img)
         #patches formation
         
         patches = extract_patches_2d(img, (self.img_size,self.img_size),max_patches=21, random_state=5)

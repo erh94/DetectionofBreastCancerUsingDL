@@ -26,6 +26,8 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 from userFunctions import *
 from userClass import *
+from utilsFn import *
+
 
 # Model Specifics
 # import pytorch_resnet as R
@@ -43,7 +45,7 @@ import time
 # from tensorboardX import SummaryWriter
 # writer = SummaryWriter('runs',comment="pretrained")
 
-
+experimentName = time.strftime("%d%b%Y%H%M",time.localtime())
 suffix = time.strftime("%d%b%Y%H%M",time.localtime())
 logtime = time.strftime("%d%b%Y %H:%M:%S",time.localtime())
 
@@ -67,7 +69,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 num_epochs = 100
 num_classes = 3
 batch_size = 21
-learning_rate = 0.01
+learning_rate = 0.001
 
 total_iteration = 10000
 img_resize =H=W=512

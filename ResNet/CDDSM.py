@@ -42,8 +42,10 @@ def createTrainFrame(homedir):
     train['image file path'] = 'CuratedDDSM/Train/'+train['image file path'] 
     train['ROI mask file path'] = 'CuratedDDSM/Train/'+train['ROI mask file path']
     train['cropped image file path'] = 'CuratedDDSM/Train/'+train['cropped image file path']
-    train['pathology_class'] = LabelEncoder().fit_transform(train['pathology'])
-    return train
+    le = LabelEncoder()    
+    train['pathology_class'] = le.fit_transform(train['pathology'])
+    num_classes = len(list(le.classes_))
+    return train, num_classes
 
 def createTestFrame(homedir):
     test_mass_csv = pd.read_csv(homedir+"/CuratedDDSM/Test/mass_case_description_test_set.csv")
@@ -60,9 +62,11 @@ def createTestFrame(homedir):
     test['image file path'] = 'CuratedDDSM/Test/'+test['image file path'] 
     test['ROI mask file path'] = 'CuratedDDSM/Test/'+test['ROI mask file path']
     test['cropped image file path'] = 'CuratedDDSM/Test/'+test['cropped image file path']
-    test['pathology_class'] = LabelEncoder().fit_transform(test['pathology'])
+    le = LabelEncoder()    
+    test['pathology_class'] = le.fit_transform(test['pathology'])
+    num_classes = len(list(le.classes_))
 
-    return test
+    return test, num_classes
 
 
 # In[6]:
@@ -119,8 +123,7 @@ class MammographyDataset(Dataset):
         # Get label(class) of the image based on the cropped pandas column
         image_label = self.label_arr[index]
 
-        return (img_as_tensor, image_label)
-
+        return (img_as_tensor, image_label,self.image_arr[index])
 
 
 class FullTrainingDataset(Dataset):

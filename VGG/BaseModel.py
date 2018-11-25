@@ -54,7 +54,7 @@ class BaselineNet(nn.Module):
         x = x.view(-1,self.num_flat_features(x))
         x = self.linear_drop(F.relu(self.fc1(x)))
         x = self.linear_drop(F.relu(self.fc2(x)))
-        x = F.softmax(self.fc3(x))
+        x = self.fc3(x)
         return x
     
     def num_flat_features(self,x):

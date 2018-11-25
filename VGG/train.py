@@ -9,6 +9,14 @@ import sys
 import math
 import torch
 import torchvision
+import argparse
+from pathlib import Path
+
+import os
+import sys
+import math
+import torch
+import torchvision
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
@@ -29,6 +37,14 @@ import logging
 import copy
 
 
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--resume', default='', type=str, metavar='PATH',
+                    help='path to latest checkpoint (default: none)')
+
+args =  parser.parse_args()
+
+
 # # Hyper Parameters
 
 # In[ ]:
@@ -38,10 +54,10 @@ device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
 print('Device {}'.format(device))
 
 
-num_epochs = 100
+num_epochs = 50
 num_classes = 3
 batch_size = 10
-learning_rate = 0.01
+learning_rate = 0.005
 
 
 #Image size
@@ -91,7 +107,9 @@ number_of_testing_data = test_dataset.__len__()
 total_step = len(train_loader)
 
 
-# In[ ]:
+
+
+
 
 
 print('Size of training dataset {}'.format(number_of_training_data))
@@ -113,6 +131,39 @@ criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 
+
+
+############################# RESUmE ################################
+if args.resume:
+    if os.path.isfile(args.resume):
+        print("=> loading checkpoint '{}'".format(args.resume))
+        checkpoint = torch.load(args.resume)
+        #start_epoch = checkpoint['epoch']
+        #best_acc = checkpoint['best_acc']
+        model.load_state_dict(checkpoint)
+        #optimizer.load_state_dict(checkpoint['optimizer'])
+        print("=> loaded checkpoint '{}' (epoch 0)".format(args.resume))
+        logger('Resumed from {}'.format(args.resume),'info','infoFile')
+    else:
+        print("=> no checkpoint found at '{}'".format(args.resume))
+        start_epoch=0
+
+######################## RESUME END #################################
+
+def init_weights(m):
+    if type(m)==nn.Conv2d or type(m)==nn.Linear:
+        torch.nn.init.xavier_uniform_(m.weight)
+        m.bias.data.fill_(0.01)
+
+#net = nn.Sequential(nn.Linear(2, 2), nn.Linear(2, 2))
+model.apply(init_weights)
+
+# In[ ]:
+
+
+
+
+
 # In[ ]:
 
 
@@ -140,12 +191,27 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 # In[ ]:
 
 
+def test(model,test_loader,epoch):
+    model_test = copy.deepcopy(model)
+    model_test.eval()
+    
+    avgacc = AverageMeter()
+    
+    with torch.no_grad():
+        for i,(images,labels,path) in enumerate(test_loader):
+            images = images.to(device)
+            labels = labels.to(device)
+            
+            outputs = model(images)
+            _,predicted = torch.max(outputs.data,1)
+            
+            acc = accuracy(outputs,labels)
+            avgacc.update(acc)
+            
 
-
-
-# In[ ]:
-
-
+            logger('{}/{},{},{},{},{}'.format(i,epoch,predicted.cpu().numpy()[0],
+                                              labels.cpu().numpy()[0],str(path),avgacc.avg),
+                   'info','testlog')
 
 
 
@@ -220,7 +286,7 @@ class AverageMeter(object):
 # In[ ]:
 
 
-bestacc = 0
+best_acc = 0
 for epoch in range(num_epochs):
     
     avgacc = AverageMeter()
@@ -253,8 +319,8 @@ for epoch in range(num_epochs):
     best_acc = max(acc,best_acc)
     
     if(is_best):
-        print("Accuracy :{}",avgacc.avg)
-        torch.save(model.state_dict(),open('./models/{}/model_{}.ckpt'.format(experimentName,
+        print("Accuracy :{}".format(avgacc.avg))
+        torch.save(model.state_dict(),openfile('./models/{}/model_{}.ckpt'.format(experimentName,
                                                                     prefix)))
         test(model,test_loader,epoch+1)
 
@@ -262,27 +328,6 @@ for epoch in range(num_epochs):
 # In[ ]:
 
 
-def test(model,test_loader,epoch):
-    model_test = copy.deepcopy(model)
-    model_test.eval()
-    
-    avgacc = AverageMeter()
-    
-    with torch.no_grad():
-        for i,(images,labels,path) in enumerate(test_loader):
-            images = images.to(device)
-            labels = labels.to(device)
-            
-            outputs = model(images)
-            _,predicted = torch.max(outputs.data,1)
-            
-            acc = accuracy(outputs,labels)
-            avgacc.update(acc)
-            
-
-            logger('{}/{},{},{},{},{}'.format(i,epoch,predicted.cpu().numpy()[0],
-                                              labels.cpu().numpy()[0],str(path),avgacc.avg),
-                   'info','testlog')
 
 
 # In[ ]:
