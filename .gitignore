@@ -1,9 +1,0 @@
-*.ckpt
-.ipynb_checkpoints/
-<<<<<<< HEAD
-__pycache__/
-*.pth.tar
-=======
-*.pth.tar
-__pycache__/
->>>>>>> master
