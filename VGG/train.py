@@ -132,6 +132,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
 
 
+<<<<<<< HEAD
 
 ############################# RESUmE ################################
 if args.resume:
@@ -150,6 +151,8 @@ if args.resume:
 
 ######################## RESUME END #################################
 
+=======
+>>>>>>> ee7f400288581bd9084b183d4a3b345a1e0d81ac
 def init_weights(m):
     if type(m)==nn.Conv2d or type(m)==nn.Linear:
         torch.nn.init.xavier_uniform_(m.weight)

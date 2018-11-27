@@ -128,7 +128,7 @@ class FullTrainingDataset(Dataset):
         self.full_ds = full_ds
         self.offset = offset
         self.length = length
-        # super(FullTrainingDataset, self).init()
+        super(FullTrainingDataset,self).__init__()
 
     def __len__(self):
         return self.length
