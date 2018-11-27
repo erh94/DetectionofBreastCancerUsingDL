@@ -264,7 +264,9 @@ def train(train_loader,model,criterion,optimizer,epoch):
         data_time.update(time.time()-end)
         images = batch[0].to(device)
         labels = bag_label[0].to(device)
-        
+        print(batch.shape)
+        print(bag_label.shape)
+        assert False, 'prints'
         scores,pred = model(images)
         loss = criterion(scores,labels)
         
