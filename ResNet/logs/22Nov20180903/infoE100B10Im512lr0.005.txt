@@ -1,0 +1,10 @@
+Size of training dataset 2577
+Size of Validation dataset 287
+Size of testing dataset 704
+No. of Epochs: 100
+ Batch size: 10
+ Learning_rate : 0.005
+ Image size 512*512
+ Step 258
+number of classes :3
+comment :Proper training, no resumes used , resnet18 with pretrained weights on imagenet is used, transfer learning to classify num_classes
