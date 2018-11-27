@@ -1,0 +1,4 @@
+*.ckpt
+*.pth.tar
+.ipybn_checkpoints/
+__pycache__
