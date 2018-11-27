@@ -42,6 +42,7 @@ def createTrainFrame(homedir):
     train['image file path'] = 'CuratedDDSM/Train/'+train['image file path'] 
     train['ROI mask file path'] = 'CuratedDDSM/Train/'+train['ROI mask file path']
     train['cropped image file path'] = 'CuratedDDSM/Train/'+train['cropped image file path']
+    train=train[train.pathology!='BENIGN_WITHOUT_CALLBACK']
     le = LabelEncoder()    
     train['pathology_class'] = le.fit_transform(train['pathology'])
     num_classes = len(list(le.classes_))
@@ -62,6 +63,8 @@ def createTestFrame(homedir):
     test['image file path'] = 'CuratedDDSM/Test/'+test['image file path'] 
     test['ROI mask file path'] = 'CuratedDDSM/Test/'+test['ROI mask file path']
     test['cropped image file path'] = 'CuratedDDSM/Test/'+test['cropped image file path']
+
+    test=test[test.pathology!='BENIGN_WITHOUT_CALLBACK']
     le = LabelEncoder()    
     test['pathology_class'] = le.fit_transform(test['pathology'])
     num_classes = len(list(le.classes_))
