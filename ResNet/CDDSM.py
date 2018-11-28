@@ -95,6 +95,7 @@ class MammographyDataset(Dataset):
         # Image Columns
         self.image_arr = np.asarray(self.frame['image file path'])
         # Labels
+        self.label_str = np.asarray(self.frame['pathology'])
         self.label_arr = np.asarray(self.frame['pathology_class'])
         # Calculate Len
         self.data_len = len(self.frame.index)
@@ -125,8 +126,8 @@ class MammographyDataset(Dataset):
 
         # Get label(class) of the image based on the cropped pandas column
         image_label = self.label_arr[index]
-
-        return (img_as_tensor, image_label,self.image_arr[index])
+        image_str = self.label_str[index]
+        return (img_as_tensor, image_label,image_str)
 
 
 class FullTrainingDataset(Dataset):

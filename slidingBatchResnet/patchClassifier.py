@@ -94,8 +94,8 @@ best_acc = 0
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-traindir = './images/train/'
-testdir = './images/test/'
+traindir = './newimages/train/'
+testdir = './newimages/test/'
 
 experimentName='ResNet18'
 
