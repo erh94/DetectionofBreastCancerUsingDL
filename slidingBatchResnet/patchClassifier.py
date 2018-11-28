@@ -31,9 +31,9 @@ from collections import Counter
 
 experimentName = time.strftime("%d%b%Y%H%M",time.localtime())
 from tensorboardX import SummaryWriter
+
+
 writer = SummaryWriter('runs/{}'.format(experimentName))
-
-
 
 model_names = sorted(name for name in models.__dict__
     if name.islower() and not name.startswith("__")
@@ -105,15 +105,12 @@ class myCustomModel(torch.nn.Module):
     def __init__(self,pretrainedModel,features_len,classes):
         super(myCustomModel,self).__init__()
         
-        self.layer0 = nn.Sequential()
-        self.layer0.add_module('conv0',nn.Conv2d(1,3,kernel_size=9,stride=1,padding=0,dilation=8))
-        self.layer0.add_module('relu0',nn.ReLU())
-        self.layer0.add_module('maxpool',nn.MaxPool2d(kernel_size=2))
+        
         self.layer1 = nn.Sequential()
         self.layer1.add_module('pretrained',pretrainedModel)
         self.fc = nn.Linear(in_features=features_len,out_features=classes)
     def forward(self,x):
-        x = self.layer0(x)
+        #x = self.layer0(x)
         features = self.layer1(x)
         features = features.view(features.size(0), -1)
         x =  self.fc(features)
@@ -130,7 +127,6 @@ def main():
 
 
     dataset = datasets.ImageFolder(traindir, transforms.Compose([
-                                                                transforms.Grayscale(1),
                                                                 torchvision.transforms.RandomHorizontalFlip(),
                                                                 torchvision.transforms.RandomRotation(20, resample=PIL.Image.BILINEAR),
                                                                 transforms.ToTensor()
@@ -156,13 +152,13 @@ def main():
     print('Number of classes : {}'.format(num_classes))
     print('Classes : {}'.format(dataset.classes))
     (x,y) = dataset[0]
-    print(x.shape,y)
+    print('Size of an image {}, Label {}, Class {}'.format(x.shape,y,dataset.classes[y]))
     #image_datasets['train'] = datasets.ImageFolder(os.path.join(DATA_DIR, 'train'))
     class_counts = {}
     class_counts = dict(Counter(sample_tup[1] for sample_tup in dataset.imgs))
-    print(class_counts[0])
-    print(class_counts[1])
-    print(class_counts[2])
+    
+    for each in range(num_classes):
+        print(class_counts[each])
 
 
     # class_counts['val'] = dict(Counter(sample_tup[1] for sample_tup in dataset.imgs))
@@ -186,8 +182,8 @@ def main():
     features_len = resnet.fc.in_features
     resnet = nn.Sequential(*list(resnet.children())[:-1])
 
-    pause('Start training?')
-
+    
+    pause('Hyper Parameters Tuning')
     
     # print(x,y)
 
@@ -196,13 +192,13 @@ def main():
     model=getCustomPretrained(resnet,features_len,num_classes)
     model=model.to(device)
 
-    # print(model)
+    print(model)
 
     # for param in resnet.parameters():
     #     param.requires_grad = False
 
-
-
+    
+    pause('Start training?')
     # store best prediction in one epoch
 
     # criterion = nn.CrossEntropyLoss()
@@ -212,7 +208,7 @@ def main():
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=learning_rate,weight_decay=args.weight_decay)
 
 
-    model.layer0.apply(init_weights)
+    
 
         #################### start epoch and best_acc ##############################
 
@@ -244,6 +240,7 @@ def main():
         validate(val_loader, model, criterion,1)
         return
 
+    
 
     for epoch in range(args.start_epoch, args.epochs):
 
