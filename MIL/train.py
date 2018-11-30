@@ -27,6 +27,8 @@ from model import *
 # In[2]:
 
 
+
+
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -42,7 +44,7 @@ numEpochs = 800
 batchSize = 1
 lr = 0.01
 classes = 2
-patchSize = H = W =512
+patchSize = H = W =224
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 homedir = str(Path.home())

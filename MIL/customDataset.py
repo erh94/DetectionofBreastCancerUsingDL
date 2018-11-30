@@ -85,8 +85,8 @@ class MammographyDataset(Dataset):
         img = img_as_float(img)
         #patches formation
         
-        patches = extract_patches_2d(img, (self.img_size,self.img_size),max_patches=21, random_state=5)
-        maskpatches = extract_patches_2d(mask,(self.img_size,self.img_size),max_patches=21,random_state=5)
+        patches = extract_patches_2d(img, (self.img_size,self.img_size),max_patches=100, random_state=5)
+        maskpatches = extract_patches_2d(mask,(self.img_size,self.img_size),max_patches=100,random_state=5)
         # labels=[]
         # for eachmask in maskpatches:
         #     labels.append(img_as_bool(eachmask).any())
@@ -94,9 +94,10 @@ class MammographyDataset(Dataset):
         # labels = np.asarray(labels)
 
         patches_tensor =  torch.from_numpy(patches)
+
         patches_tensor = patches_tensor.unsqueeze(1).float()
         # labels_tensor = torch.from_numpy(labels)
-
+        patches_tensor = patches_tensor.repeat(1,3,1,1)
         img_tensor = torch.from_numpy(img) 
         label = np.zeros(self.num_classes)
         label_index = self.label_arr[index]

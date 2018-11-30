@@ -11,16 +11,16 @@ class myCustomModel(torch.nn.Module):
     def __init__(self,pretrainedModel,num_classes):
         super(myCustomModel,self).__init__()
         self.num_classes=num_classes
-        self.layer0 = nn.Sequential()
-        self.layer0.add_module('conv0',nn.Conv2d(1,3,kernel_size=9,stride=1,padding=0,dilation=8))
-        self.layer0.add_module('relu0',nn.ELU())
-        self.layer0.add_module('maxpool',nn.MaxPool2d(kernel_size=2))
+        # self.layer0 = nn.Sequential()
+        # self.layer0.add_module('conv0',nn.Conv2d(1,3,kernel_size=9,stride=1,padding=0,dilation=8))
+        # self.layer0.add_module('relu0',nn.ELU())
+        # self.layer0.add_module('maxpool',nn.MaxPool2d(kernel_size=2))
         self.layer1 = nn.Sequential()
         self.layer1.add_module('pretrained',pretrainedModel)
         self.fc = nn.Linear(in_features=512,out_features=num_classes)
         self.Sf = nn.Softmax(dim=1)
     def forward(self,x):
-        x = self.layer0(x)
+        
         features = self.layer1(x)
         features = features.view(features.size(0), -1)
         x =  self.Sf(self.fc(features))
