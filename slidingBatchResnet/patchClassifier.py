@@ -33,7 +33,7 @@ experimentName = time.strftime("%d%b%Y%H%M",time.localtime())
 from tensorboardX import SummaryWriter
 
 
-writer = SummaryWriter('runs/{}'.format(experimentName))
+writer = SummaryWriter('runs/{}_subsample'.format(experimentName))
 
 model_names = sorted(name for name in models.__dict__
     if name.islower() and not name.startswith("__")
@@ -97,7 +97,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 traindir = './newimages/train/'
 testdir = './newimages/test/'
 
-experimentName='ResNet18'
+
 
 prefix = 'Epochs{}Batch{}Image{}lr{}'.format(num_epochs,batch_size,imageSize,learning_rate)    
 ########################### custom resnet for 512 * 512 grayscale images ###################### 
@@ -118,6 +118,9 @@ class myCustomModel(torch.nn.Module):
 
 def getCustomPretrained(model,features_len,classes):
     return myCustomModel(model,features_len,classes)
+
+
+
     
 
 def main():
@@ -131,11 +134,20 @@ def main():
                                                                 torchvision.transforms.RandomRotation(20, resample=PIL.Image.BILINEAR),
                                                                 transforms.ToTensor()
                                                                 ]),)
+
+
+
+    # For unbalanced dataset we create a weighted sampler                       
+    weights = make_weights_for_balanced_classes(dataset.imgs, len(dataset.classes))                                                                
+    weights = torch.DoubleTensor(weights)                                       
+    sampler = torch.utils.data.sampler.WeightedRandomSampler(weights, len(weights))
+
+
+
     train_dataset , val_dataset = trainValSplit(dataset,val_share=0.1)
 
     train_loader = torch.utils.data.DataLoader(dataset=train_dataset,
-                                           batch_size=args.batch_size, 
-                                           shuffle=True)
+                                           batch_size=args.batch_size,sampler = sampler)
 
     val_loader = torch.utils.data.DataLoader(dataset=val_dataset,
                                            batch_size=args.batch_size, 
@@ -144,8 +156,7 @@ def main():
     total_size = dataset.__len__()
     numberOfTrainData = train_dataset.__len__()
     numberOfValData = val_dataset.__len__()
-    # numberOfTestData =  test_dataset.__len__()
-
+    # numberOfTestData =  test_dataset.__len__()  
 
     ############# determining size of each class ##################
     num_classes = len(dataset.classes)
@@ -164,9 +175,6 @@ def main():
     # class_counts['val'] = dict(Counter(sample_tup[1] for sample_tup in dataset.imgs))
     class_weights = [1-(float(class_counts[class_id])/total_size) for class_id in range(num_classes)]
     print(class_weights)
-    
-
-
 
 
     total_step=len(train_loader)
@@ -358,14 +366,11 @@ def validate(val_loader, model, criterion,epoch):
                   '{acc1.val:.3f},{acc1.avg:.3f}'.format(
                    i, len(val_loader), batch_time=batch_time, loss=losses,acc1=avgaccu),'info','vadLog')
 
-        print(' **********Validation Accuracy {acc1.avg:.3f}*****************'
-              .format(acc1=avgaccu))
-
-
-        niter = epoch*len(val_loader)+i
-        writer.add_scalar('Val/Loss', losses.val, niter)
-        writer.add_scalar('Val/Acc', avgaccu.val, niter)
-
+            niter = epoch*len(val_loader)+i
+            writer.add_scalar('Val/Loss', losses.val, niter)
+            writer.add_scalar('Val/Acc', avgaccu.val, niter)
+    
+    print(' **********Validation Accuracy {acc1.avg:.3f}*****************'.format(acc1=avgaccu))
 
     return avgaccu.val
 
